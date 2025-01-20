@@ -21,6 +21,36 @@ export GITLAB_TOKEN="your-personal-access-token"
 
 ## 🚀 Available Scripts
 
+### Pipeline Monitor
+
+Real-time monitoring dashboard for pipeline statuses across all projects in a GitLab group.
+
+```bash
+# Basic usage - show only non-successful pipelines
+./pipeline-monitor.sh GROUP_ID
+
+# Show all pipelines including successful ones
+SHOW_SUCCESSFUL=true ./pipeline-monitor.sh GROUP_ID
+
+# Auto-refresh every 30 seconds
+REFRESH=30 ./pipeline-monitor.sh GROUP_ID
+```
+
+**Additional configuration:**
+```bash
+export GROUP_ID="123"                # Required
+export SHOW_SUCCESSFUL="true"        # Optional (default: false)
+export REFRESH="30"                  # Optional (refresh interval in seconds)
+export DEBUG="true"                  # Optional (enables debug logging)
+```
+
+Features:
+- Color-coded status indicators (✓ Success, ✗ Failed, ⟳ Running, ⋯ Pending, ⊙ Manual)
+- Auto-refresh capability
+- Compact project name display
+- Summary statistics
+- Configurable display of successful pipelines
+
 ### Merge Requests Automator
 
 Automates merge request workflows by monitoring approvals, managing labels, and sending notifications.
@@ -96,6 +126,16 @@ Lists all projects in a GitLab group, including those in subgroups. Outputs clon
 ```
 
 ## 📝 Examples
+
+### Monitor Pipeline Statuses
+```bash
+# Monitor pipelines with auto-refresh
+export GITLAB_URL="https://gitlab.company.com"
+export GITLAB_TOKEN="your-token"
+export GROUP_ID="123"
+export REFRESH="30"
+./pipeline-monitor.sh
+```
 
 ### Generate Your Monthly Contributions Report
 ```bash

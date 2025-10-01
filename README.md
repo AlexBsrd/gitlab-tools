@@ -1,6 +1,6 @@
 # GitLab Tools 🛠️
 
-A collection of shell scripts to automate and streamline GitLab project management tasks. These tools help you monitor merge requests, track project activity, and analyze contributions.
+A collection of shell scripts to automate and streamline GitLab project management tasks. These tools help you monitor merge requests, track project activity, analyze contributions, and measure job performance.
 
 ## 📋 Requirements
 
@@ -125,6 +125,34 @@ Lists all projects in a GitLab group, including those in subgroups. Outputs clon
 ./project-lister.sh GROUP_ID
 ```
 
+### Job Duration Analyzer
+
+Calculate cumulative execution time of a specific job across all pipelines in a given period.
+
+```bash
+# Analyze a specific job for last month
+GITLAB_TOKEN=glpat-xxx PROJECT_ID=123 JOB_NAME=fail-draft-mr ./gitlab-job-duration.sh
+
+# Analyze for a custom period
+GITLAB_TOKEN=glpat-xxx PROJECT_ID=123 JOB_NAME=build \
+  START_DATE=2024-09-01 END_DATE=2024-09-30 \
+  ./gitlab-job-duration.sh
+```
+
+**Additional configuration:**
+```bash
+export PROJECT_ID="123"                  # Required
+export JOB_NAME="job-name"              # Required
+export START_DATE="2024-09-01"          # Optional (default: beginning of last month)
+export END_DATE="2024-09-30"            # Optional (default: end of last month)
+```
+
+Features:
+- Searches across all branches and pipeline statuses
+- Displays detailed job information (duration, status, branch, date)
+- Calculates total and average execution times
+- Supports custom date ranges
+
 ## 📝 Examples
 
 ### Monitor Pipeline Statuses
@@ -153,6 +181,15 @@ export GITLAB_TOKEN="your-token"
 export GROUP_ID="123"
 export EXCLUDE_BOTS="gitlab-bot"
 ./project-activity-tracker.sh
+```
+
+### Analyze Job Performance
+```bash
+export GITLAB_URL="https://gitlab.company.com"
+export GITLAB_TOKEN="your-token"
+export PROJECT_ID="456"
+export JOB_NAME="test"
+./gitlab-job-duration.sh
 ```
 
 ### Clone All Group Projects
